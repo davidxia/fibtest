@@ -46,8 +46,8 @@ setgovernors () {
 
 	for (( i=0 ; i < NRCPUS ; i++ ))
 	do
-		sudo sh -c "echo '$SCALINGGOV' > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor"
-		sudo sh -c "echo '$ENERGYGOV' > /sys/devices/system/cpu/cpu${i}/cpufreq/energy_performance_preference"
+		sh -c "echo '$SCALINGGOV' > /sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor"
+		sh -c "echo '$ENERGYGOV' > /sys/devices/system/cpu/cpu${i}/cpufreq/energy_performance_preference"
 	done
 }
 
@@ -73,12 +73,12 @@ setgovernors performance performance
 
 # Create CGROUP
 if [ ! -d ${CGROUPDIR}/${CGROUP} ] ; then
-	sudo mkdir -p ${CGROUPDIR}/${CGROUP}
+	mkdir -p ${CGROUPDIR}/${CGROUP}
 fi
 
 # Set the CPU quota
-sudo sh -c "echo $QUOTA > ${CGROUPDIR}/${CGROUP}/cpu.cfs_quota_us"
-sudo sh -c "echo $$ >> ${CGROUPDIR}/${CGROUP}/tasks"
+sh -c "echo $QUOTA > ${CGROUPDIR}/${CGROUP}/cpu.cfs_quota_us"
+sh -c "echo $$ >> ${CGROUPDIR}/${CGROUP}/tasks"
 
 # ****************** RUN THE TEST ***************
 # Uses Number of CPUs 
